@@ -123,10 +123,10 @@ try {
 function setBlobServiceProperties($blobClient)
 {
      // Get blob service properties
-    echo "Get Blob Service properties" . PHP_EOL;
+    echo "获取 Blob 服务属性" . PHP_EOL;
     $originalProperties = $blobClient->getServiceProperties();
     // Set blob service properties
-    echo "Set Blob Service properties" . PHP_EOL;
+    echo "设置 Blob 服务属性" . PHP_EOL;
     $retentionPolicy = new RetentionPolicy();
     $retentionPolicy->setEnabled(true);
     $retentionPolicy->setDays(10);
@@ -186,7 +186,7 @@ function containerProperties($blobClient)
 {
     $containerName = "mycontainer" . generateRandomString();
 
-    echo "Create container " . $containerName . PHP_EOL;
+    echo "创建容器 " . $containerName . PHP_EOL;
     // Create container options object.
     $createContainerOptions = new CreateContainerOptions();
     // Set public access policy. Possible values are
@@ -200,12 +200,12 @@ function containerProperties($blobClient)
     $createContainerOptions->addMetaData("key2", "value2");
     // Create container.
     $blobClient->createContainer($containerName, $createContainerOptions);
-    echo "Get container properties:" . PHP_EOL;
+    echo "获取容器属性:" . PHP_EOL;
     // Get container properties
     $properties = $blobClient->getContainerProperties($containerName);
-    echo 'Last modified: ' . $properties->getLastModified()->format('Y-m-d H:i:s') . PHP_EOL;
+    echo '最近修改: ' . $properties->getLastModified()->format('Y-m-d H:i:s') . PHP_EOL;
     echo 'ETAG: ' . $properties->getETag() . PHP_EOL;
-    echo "Delete container" . PHP_EOL;
+    echo "删除容器" . PHP_EOL;
     $blobClient->deleteContainer($containerName) . PHP_EOL;
 }
 
@@ -213,7 +213,7 @@ function containerMetadata($blobClient)
 {
     $containerName = "mycontainer" . generateRandomString();
 
-    echo "Create container " . $containerName . PHP_EOL;
+    echo "创建容器 " . $containerName . PHP_EOL;
     // Create container options object.
     $createContainerOptions = new CreateContainerOptions();
     // Set container metadata
@@ -235,7 +235,7 @@ function containerAcl($blobClient)
 {
     // Create container
     $container = "mycontainer" . generateRandomString();
-    echo "Create container " . $container . PHP_EOL;
+    echo "创建容器 " . $container . PHP_EOL;
     $blobClient->createContainer($container);
     // Set container ACL
     $past = new \DateTime("01/01/2010");
@@ -307,7 +307,7 @@ function blobMetadata($blobClient)
     $blobClient->createContainer($container);
     // Create blob
     $blob = 'blob' . generateRandomString();
-    echo "Create blob " . PHP_EOL;
+    echo "创建 Blob " . PHP_EOL;
     $blobClient->createPageBlob($container, $blob, 4096);
     // Set blob metadata
     echo "Set blob metadata" . PHP_EOL;
@@ -496,7 +496,7 @@ function basicStorageBlobOperationAsync($blobClient)
     )->then(
         function ($putBlobResult) use ($blobClient, $containerName) {
             // Successfully created the blob, then download the blob.
-            echo "Blob successfully created.\n";
+            echo "Blob 创建成功！\n";
             return $blobClient->saveBlobToFileAsync(
                 "output.txt",
                 $containerName,
@@ -507,7 +507,7 @@ function basicStorageBlobOperationAsync($blobClient)
     )->then(
         function ($getBlobResult) use ($blobClient, $containerName) {
             // Successfully saved the blob, now list the blobs.
-            echo "Blob successfully downloaded.\n";
+            echo "Blob 成功下载！\n";
             return $blobClient->listBlobsAsync($containerName);
         },
         null
